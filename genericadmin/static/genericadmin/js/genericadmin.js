@@ -13,8 +13,7 @@
         url_array: null,
         fields: null,
         obj_url: "../obj-data/",
-        admin_media_url: window.__admin_media_prefix__,
-		popup: '_popup',
+        popup: '_popup',
         
         prepareSelect: function(select) {
             var that = this,
@@ -72,9 +71,11 @@
             return url;
         },
         
-        getLookupUrl: function(cID) {
-            return '../../../' + this.url_array[cID][0] + '/' + this.getLookupUrlParams(cID);
-        },
+        getLookupUrl: function(cID, with_params) {
+            var url = this.url_array[cID][1];
+            if(with_params){url = url + this.getLookupUrlParams(cID);}
+            return url;
+         },
         
         getFkId: function() {
             if (this.fields.inline === false) {
@@ -105,11 +106,10 @@
         
         showLookupLink: function() {
             var that = this,
-                url = this.getLookupUrl(this.cID),
+                url = this.getLookupUrl(this.cID, true),
                 id = 'lookup_' + this.getFkId(),
                 link = '<a class="related-lookup" id="' + id + '" href="' + url + '">';
                 
-            link = link + '<img src="' + this.admin_media_url.replace(/\/?$/, '/') + 'img/selector-search.gif" style="cursor: pointer; margin-left: 5px; margin-right: 10px;" width="16" height="16" alt="Lookup"></a>';
             link = link + '<strong id="lookup_text_'+ this.getFkId() +'" margin-left: 5px"><a target="_new" href="#"></a><span></span></strong>';
 
             // insert link html after input element
