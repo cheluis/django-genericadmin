@@ -64,7 +64,7 @@ class BaseGenericModelAdmin(object):
                     field_list.append(fields)
         else:    
             for field in self.model._meta.virtual_fields:
-                if isinstance(field, generic.GenericForeignKey) and \
+                if isinstance(field, GenericForeignKey) and \
                         field.ct_field not in exclude and field.fk_field not in exclude:
                     field_list.append({
                         'ct_field': field.ct_field, 
